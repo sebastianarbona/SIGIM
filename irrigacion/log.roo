@@ -1,0 +1,12 @@
+// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log opened at 2016-01-29 12:16:19
+project --topLevelPackage com.core.irrigacion --projectName Irrigacion --java 7 --packaging WAR
+// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log closed at 2016-01-29 12:16:30
+// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log opened at 2016-01-29 12:17:10
+jpa setup --database MYSQL --provider HIBERNATE 
+entity jpa --class com.core.irrigacion.entity.Casa
+web mvc setup 
+// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log closed at 2016-01-29 13:32:58
+// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log opened at 2016-01-29 13:35:43
+// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log closed at 2016-01-30 00:35:08
+// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log opened at 2016-01-30 02:59:00
+// Spring Roo 1.2.5.RELEASE [rev 8341dc2] log closed at 2016-01-30 03:14:23
