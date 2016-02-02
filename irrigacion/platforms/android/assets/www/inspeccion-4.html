@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Matafuegos - Inspecci&#243;n</title>
+
+        <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.css" />
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bud-green.theme.css"/>
+        <link href="css/reset.css" rel="stylesheet"/>
+        <link href="css/layout.css" rel="stylesheet"/>
+        <link href="css/components.css" rel="stylesheet"/>
+        <link href="css/plugins.css" rel="stylesheet"/>
+        <link href="css/custom.css" rel="stylesheet"/>
+        <link href="css/animate.min.css" rel="stylesheet"/>
+
+        <script src="js/jquery-1.9.1.min.js"><!--  --></script>
+        <script src="js/jquery.mobile-1.4.5.min.js"><!--  --></script>
+        <script src="js/bootstrap.min.js"><!--  --></script>
+        <script src="js/bootbox.min.js"><!--  --></script>
+        <script src="js/jquery.maskedinput.min.js"><!--  --></script>
+	    
+	</head>
+	<body>
+		<div data-role="page" id="paso4" class="main-content animated fadeInLeft" style="background: #f3f3f3; border-color: #00b1e1; margin-bottom: 0px;">
+	        <div class="panel rounded shadow panel-primary" style="background: #00b1e1; border-color: #00b1e1">
+	            <div style="background: #00b1e1; border-color: #00b1e1; margin-left: 1%">
+	                <div class="row">
+	                    <span class="col-lg-11 col-md-11 col-sm-11 col-xs-10">
+							<h1 class="center" style="text-align: center">Alta Inspecci&#243;n</h1>
+						</span>
+						<ul class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="list-style: outside none none">
+							<li>
+								<a class="ui-link ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" style="background: RED; border-color: grey; color: grey" data-icon="delete" href="#" id="salir"></a>
+							</li>
+						</ul>
+	                </div>
+	                <div data-role="navbar" id="opciones" hidden="true">
+	                    <ul style="list-style: outside none none">
+	                        <div class="col-xs-5">
+	                            <li><a class="ui-link ui-btn ui-icon-delete ui-btn-icon-top ui-shadow ui-corner-all" style="background: white; border-color: grey; color: grey" data-icon="home" href="#" onclick="home()">Home</a></li>
+	                        </div>
+	                        <div class="col-xs-5">
+	                            <li><a class="ui-link ui-btn ui-icon-delete ui-btn-icon-top ui-shadow ui-corner-all" style="background: white; border-color: grey; color: grey" data-icon="delete" href="#" onclick="cerrarSesion()">Cerrar Sesi&#243;n</a></li>
+	                        </div>
+	                    </ul>
+	                </div>
+	            </div>
+	            </br>
+            <div class="panel-heading" style="background: #2F76BD">
+	                Matafuegos
+	            </div>
+            <!-- /.panel-heading -->
+    			<form id="formFiltro" role="search">
+					<input id="id" name="id" type="hidden">
+					<div class="col-md-4">
+                        <button id="boton1" type="button" class="col-md-4 btn-primary ui-corner-all ui-shadow" value="Guardar" style="width: 100%; background: white; border-color: grey; color: grey" data-icon="plus" onclick="agregar()">
+							Agregar
+						</button>
+					</div>
+				</form>
+			</div>	
+			<div id="tabla">
+				<!--  -->
+				<br />
+				<div class="table-responsive">
+	  				<table class="table table-bordered table-hover table-striped" id="table-'+id+'">
+	  					<thead>
+	  						<tr>
+								<th style="min-width: 10%; border-color: #00b1e1 #00b1e1 #2F76BD !important; background-color: black !important; color: white">Acci&#243;n</th>
+								<th style="min-width: 30%; border-color: #00b1e1 #00b1e1 #2F76BD !important; background-color: black !important; color: white">N&#176; de Matafuego</th>
+								<th style="min-width: 30%; border-color: #00b1e1 #00b1e1 #2F76BD !important; background-color: black !important; color: white">N&#173; de Habilitaci&#243;n</th>
+								<th style="min-width: 30%; border-color: #00b1e1 #00b1e1 #2F76BD !important; background-color: black !important; color: white">Capacidad</th>
+							</tr>
+	  					</thead>
+	  					<div id="body">
+	  						<tbody id="data">
+	  						</tbody>
+	  					</div>
+	  				</table>
+	  			</div>
+			</div>
+            <div class="row">
+             	<div class="col-lg-4 pull-right">
+            		<button onclick="finalizar()" data-icon="check" id="boton" type="button" class="btn-primary ui-corner-all ui-shadow" value="Guardar" style="width: 100%; background: #00b1e1; color: white;">Finalizar</button>
+    			</div>
+    		</div>
+			<br />		
+		</div>
+		<script>
+			$("#salir").on("click",function(event) {
+				navigator.app.exitApp();
+			});
+
+			var datos = location.search; 
+	        datos = datos.substr(1,datos.length);
+	        var arrVar0 = datos.split ("=");
+	        if(arrVar0[0].split (",") == 'id'){
+	            var id = arrVar0[1].split (",");
+	        }
+
+	        if(id != null){
+	        	$.ajax({
+	                type: 'POST',
+//  	                url: "http://192.168.37.13:8080/Irrigacion/administracion/inspeccion/buscar?id="+id,
+	                url: "http://192.168.1.43:8080/Irrigacion/administracion/inspeccion/buscar?id="+id,
+	                success: function(data) {
+	                    if(data.error != null){
+	                        bootbox.alert(data.error);
+	                    } else {
+	                    	$('#id').val(data.id);
+	                    }           
+	                }
+	            });
+	        }
+			$(document).on('pageinit', '#paso4', function(){
+				abrirTabla();
+			});
+			
+			function finalizar(){
+				window.location.replace('inspeccion-listado.html');
+			}
+			
+			function eliminar(idMatafuego){
+				$.ajax({
+					type : 'POST', 
+//  					url: 'http://192.168.37.13:8080/Irrigacion/administracion/inspeccion/matafuegos/eliminar?id='+id+'&idMatafuego='+idMatafuego,
+					url: 'http://192.168.1.43:8080/Irrigacion/administracion/inspeccion/matafuegos/eliminar?id='+id+'&idMatafuego='+idMatafuego,
+			        dataType: "json",
+			        async: true,
+			        success: function (result) {
+			        	location.reload(true);
+			        },
+		        	error: function (request,error) {
+	            		bootbox.alert('Ha ocurrido un error de red, intente nuevamente por favor!');
+		        	}
+				});	
+			}
+		
+			function agregar(){
+	        	var id = $('#id').val();
+				bootbox.dialog({
+	                title: "Agregar Matafuegos",
+	                message: '<div class="row">  ' +
+			                    '<div class="col-md-12"> ' +
+			                    '<form id="formAgregar" class="form-horizontal"> ' +
+			                    '<input id="id" name="id" type="hidden" value="'+id+'"> ' +
+			                    	'<div class="form-group"> ' +
+			                    		'<label class="col-md-3 control-label" for="name">N&#176; Matafuegos: </label> ' +
+			                    		'<div class="col-md-6"> ' +
+			                    			'<input id="numMatafuego" name="numMatafuego" placeholder="Ingrese N&#176; Matafuegos" class="form-control input-md" type="number">' +
+			                    		'</div> ' +
+			                    	'</div> ' +
+			                    	'<div class="form-group"> ' +
+			                    		'<label class="col-md-3 control-label" for="name">N&#176; Habilitaci&#243;n: </label> ' +
+					                    '<div class="col-md-8"> ' +
+					                    	'<input id="numHabilitacion" name="numHabilitacion" type="number" placeholder="Ingrese N&#176; Habilitaci&#243;n" class="form-control input-md"> ' +
+					                    '</div> ' +
+			                    	'</div> ' +
+			                    	'<div class="form-group"> ' +
+			                    		'<label class="col-md-3 control-label" for="name">Capacidad: </label> ' +
+					                    '<div class="col-md-8"> ' +
+					                    	'<input id="capacidad" name="capacidad" type="text" placeholder="Ingrese capacidad" class="form-control input-md"> ' +
+					                    '</div> ' +
+			                    	'</div> ' +
+			                    '</div> ' +
+			                 '</div> </div>' +
+			                 '</form> </div>  </div>',
+	                buttons: {
+	                    Cancelar: {
+	                        label: "Cancelar",
+	                        className: "btn-danger",
+	                    },
+	                    success: {
+	                        label: "Agregar",
+	                        className: "btn-success",
+	                        callback: function() {
+	                        	var problema = true;
+				 				$.ajax({
+// 	 			 					url: 'http://192.168.37.13:8080/Irrigacion/administracion/inspeccion/matafuegos/modificar',
+				 					url: 'http://192.168.1.43:8080/Irrigacion/administracion/inspeccion/matafuegos/modificar',
+									data: $("#formAgregar").serialize(),
+				 					dataType: "json",
+				 			        async: true,
+				 			        success: function (result) {
+					 			       	if(result.error != null){
+						            		bootbox.alert(result.error);
+				 			        	}else {
+											location.reload(true);
+				 			        	}
+				 					},
+				 					error: function (request,error) {
+					            		bootbox.alert('Ha ocurrido un error de red, intente nuevamente por favor!');
+						        	} 
+				 				});
+	                        }
+	                    }
+	                }
+	            });
+			}
+
+			function abrirTabla(){
+				$.ajax({
+//  					url: 'http://192.168.37.13:8080/Irrigacion/administracion/inspeccion/matafuegos/buscar',
+					url: 'http://192.168.1.43:8080/Irrigacion/administracion/inspeccion/matafuegos/buscar',
+   					data: $("#formFiltro").serialize(),
+   			        dataType: "json",
+   			        async: true,
+   			        success: function (result) {
+   			        	$.each(result, function(i, detalle) {
+   							$('#data').append('<tr>'+
+	    									  '		<th class="th-'+detalle.id+'" style="padding-left: 4px; padding-right: 4px;">'+
+											  '			<button class="" style="margin: 0px;padding: 1px 1px 1px 1px" id="delete-'+detalle.id+'" onclick="eliminar('+detalle.id+')">'+
+											  '				<span class="ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c ui-icon-delete"'+
+											  '					style="background: red;margin: 0px;padding: 0px">&nbsp;</span>'+
+											  '			</button>'+
+											  '		</th>'+
+											  '		<th class="th-'+detalle.id+'"><span style="text-shadow: initial">'+detalle.numMatafuego+'</span></th>'+
+											  '		<th class="th-'+detalle.id+'"><span style="text-shadow: initial">'+detalle.numHabilitacion+'</span></th>'+
+											  '		<th class="th-'+detalle.id+'"><span style="text-shadow: initial">'+detalle.capacidad+'</span></th>'+
+											  '</tr>');
+					        $("#delete-"+detalle.id).addClass("ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext col-lg-1 col-md-1 col-sm-1 col-xs-1");
+						});
+   			        },
+		        	error: function (request,error) {
+	            		bootbox.alert('Ha ocurrido un error de red, intente nuevamente por favor!');
+		        	}
+				});
+			}
+		</script>
+	</body>
+</html>

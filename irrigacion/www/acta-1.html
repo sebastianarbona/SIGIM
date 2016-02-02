@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Actas-Irrigaci&#243;n Mobile</title>
+
+        <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.css" />
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bud-green.theme.css"/>
+        <link href="css/reset.css" rel="stylesheet"/>
+        <link href="css/layout.css" rel="stylesheet"/>
+        <link href="css/components.css" rel="stylesheet"/>
+        <link href="css/plugins.css" rel="stylesheet"/>
+        <link href="css/custom.css" rel="stylesheet"/>
+        <link href="css/animate.min.css" rel="stylesheet"/>
+
+        <script src="js/jquery-1.9.1.min.js"><!--  --></script>
+        <script src="js/jquery.mobile-1.4.5.min.js"><!--  --></script>
+        <script src="js/bootstrap.min.js"><!--  --></script>
+        <script src="js/bootbox.min.js"><!--  --></script>
+        <script src="js/jquery.maskedinput.min.js"><!--  --></script>
+
+    </head>
+    <body>
+        <div data-role="page" id="paso1" class="main-content animated fadeInLeft" style="background: #00b1e1">
+        <div class="panel rounded shadow panel-primary" style="background: #00b1e1; border-color: #00b1e1">
+            <div style="background: #00b1e1; border-color: #00b1e1; margin-left: 1%">
+                <div class="row">
+					<span class="col-lg-11 col-md-11 col-sm-11 col-xs-10">
+						<h1 class="center" style="text-align: center">Alta Actas</h1>
+					</span>
+					<ul class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="list-style: outside none none">
+						<li>
+							<a class="ui-link ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" style="background: RED; border-color: grey; color: grey" data-icon="delete" href="#" id="salir"></a>
+						</li>
+					</ul>
+                </div>
+                <div data-role="navbar" id="opciones" hidden="true">
+                    <ul style="list-style: outside none none">
+                        <div class="col-xs-5">
+                            <li><a class="ui-link ui-btn ui-icon-delete ui-btn-icon-top ui-shadow ui-corner-all" style="background: white; border-color: grey; color: grey" data-icon="home" href="#" onclick="home()">Home</a></li>
+                        </div>
+                        <div class="col-xs-5">
+                            <li><a class="ui-link ui-btn ui-icon-delete ui-btn-icon-top ui-shadow ui-corner-all" style="background: white; border-color: grey; color: grey" data-icon="delete" href="#" onclick="cerrarSesion()">Cerrar Sesi&#243;n</a></li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            </br>
+            <div class="panel-heading" style="background: #2F76BD">
+                Acta
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <form id="formulario1" role="form">
+                        <input type="hidden" value="edit" name="oper" />
+                        <input type="hidden" name="id" id="id"/>
+                        <fieldset class="ui-field-contain">
+                            
+                        </fieldset>
+                        <div class="form-group">
+                            <div class="col-xs-12" style="float: none;">
+                                <label for="usr"> Fecha de Acta</label>
+                            </div>
+                            <input type="text" class="form-control input-mask-date" id="fechaActa" name="fechaActa" placeholder="Ingrese una fecha de Acta" />
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12" style="float: none;">
+                                <label style="float: none;"> N&#176; de Acta</label>
+                            </div>
+                            <input type="number" class="form-control" id="numActa" name="numActa" placeholder="Ingrese numero de acta" />      
+                        </div>
+                        <div class="form-group">
+                            <select id="idInspeccion" name="idInspeccion" >
+	                                <option value="-1">Seleccione una Inspeccion</option>
+							</select>
+                        </div>
+			            <div class="form-group">
+                            <select id="idTipoCausa" name="idTipoCausa" >
+	                                <option value="-1">Seleccione un Tipo de Causa</option>
+							</select>
+                        </div>
+			            <div class="form-group">
+                            <div class="col-xs-12" style="float: none;">
+                                <label for="usr"> Fecha de Vencimiento</label>
+                            </div>
+                            <input type="text" class="form-control input-mask-date" id="fechaVencimiento" name="fechaVencimiento" placeholder="Ingrese una fecha de Vencimiento" />
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12" style="float: none;">
+                                <label style="float: none;"> Dias de Descargo</label>
+                            </div>
+                            <input type="number" class="form-control" id="diasDescargo" name="diasDescargo" placeholder="Ingrese los dias de descargo" />      
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12" style="float: none;">
+                                <label style="float: none;"> Observacion</label>
+                            </div>
+                            <input type="text" class="form-control" id="observacion" name="observacion" placeholder="Ingrese una Observacion" />      
+                        </div>
+                        <div class="row">
+			             	<div class="col-lg-4 pull-right">
+			             		<button id="boton1" data-icon="check" type="button" class="btn-primary ui-corner-all ui-shadow" value="Guardar" style="width: 100%; background: #00b1e1; color: white;">Guardar</button>
+			    			</div>
+			    		</div>
+                </form>
+            </div>
+            <div class="form-footer" >
+                <div class="pull-left">
+                    <button id="volver" href="acta-listado.html" class="ui-btn ui-icon-back ui-btn-icon-left ui-corner-all ui-shadow">Volver</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+            <!-- /.panel-body -->
+    </div> 
+    </body>
+
+    <script>
+		$("#salir").on("click",function(event) {
+			navigator.app.exitApp();
+		});
+
+        var datos = location.search; 
+        datos = datos.substr(1,datos.length);
+        var arrVar0 = datos.split ("=");
+        if(arrVar0[0].split (",") == 'id'){
+            var id = arrVar0[1].split (",");
+        }
+        if(id != null){
+        	$.ajax({
+                type: 'POST',
+//                 url: "http://192.168.37.13:8080/Irrigacion/administracion/acta/buscar?id="+id,
+               url: "http://192.168.1.43:8080/Irrigacion/administracion/acta/buscar?id="+id,
+                success: function(data) {
+                    if(data.error != null){
+                        bootbox.alert(data.error);
+                    } else {
+                    	$('#id').val(data.id);
+                    	$('#fechaActa').val(data.fechaActaStr);
+                    	$('#idInspeccion').val(data.inspeccion.id);
+                    	$('#numActa').val(data.numActa);
+                    	$('#idTipoCausa').val(data.tipoCausa.id);
+                    	$('#diasDescargo').val(data.diasDescargo);
+                    	$('#observacion').val(data.observacion);
+                    }           
+                }
+            });
+        }
+		
+        $.mask.definitions['~']='[+-]';
+        $('.input-mask-date').mask('99/99/9999');
+        
+		$(document).on('pageinit', '#paso1', function(){
+				comboInspeccion();
+				comboTipoCausa();
+		});
+
+        function comboInspeccion(){
+            $.ajax({
+//              	url: 'http://192.168.37.13:8080/Irrigacion/administracion/combo/inspeccion',
+           	url: 'http://192.168.1.43:8080/Irrigacion/administracion/combo/inspeccion',
+                dataType: "json",
+                async: true,
+                success: function (result) {
+                    $.each(result, function(i, detalle) {
+                        $('#idInspeccion').append('<option value="'+detalle.id+'">'+detalle.fechaInspeccionStr+'</option>');
+                    });
+                },
+                error: function (request,error) {
+                    bootbox.alert('Ha ocurrido un error de red, intente nuevamente por favor!');
+                } 
+            });
+        }
+				
+        function comboTipoCausa(){
+            $.ajax({
+//                  url: 'http://192.168.37.13:8080/Irrigacion/administracion/combo/tipocausa',
+               url: 'http://192.168.1.43:8080/Irrigacion/administracion/combo/tipocausa',
+                dataType: "json",
+                async: true,
+                success: function (result) {
+                    $.each(result, function(i, detalle) {
+                        $('#idTipoCausa').append('<option value="'+detalle.id+'">'+detalle.tipoCausa+'</option>');
+                    });
+                },
+                error: function (request,error) {
+                    bootbox.alert('Ha ocurrido un error de red, intente nuevamente por favor!');
+                } 
+            });
+        }
+
+        $('#boton1').on("click",function(event) {
+        	if($('#idInspeccion').val() == "-1"){
+        		bootbox.alert("Debe seleccionar una Inspeccion.");
+           	} else if($('#idTipoCausa').val() == "-1"){
+        		bootbox.alert("Debe seleccionar un tipo de causa.");
+           	} else{
+           		$.ajax({
+	                type: 'POST',
+//  	                url: "http://192.168.37.13:8080/Irrigacion/administracion/acta/modificar",
+	                url: "http://192.168.1.43:8080/Irrigacion/administracion/acta/modificar",
+	                data: $('#formulario1').serialize(),
+	                success: function(data) {
+	                    if(data.error != null){
+	                        bootbox.alert(data.error);
+	                    } else {
+	                        bootbox.alert("Los datos fueron guardados con exito.", function() {
+	                            window.location.replace('acta-listado.html');
+	                        });
+	                    }           
+	                }
+	            });
+           	}
+        });
+    </script>
+</html>

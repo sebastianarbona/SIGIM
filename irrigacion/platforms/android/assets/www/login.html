@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Login-COEF Mobile</title>
+		
+		<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.css" />
+		<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"/>
+		<link rel="stylesheet" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="css/bud-green.theme.css"/>
+		<link href="css/reset.css" rel="stylesheet"/>
+		<link href="css/layout.css" rel="stylesheet"/>
+		<link href="css/components.css" rel="stylesheet"/>
+		<link href="css/plugins.css" rel="stylesheet"/>
+		<link href="css/antique-brass.theme.css" rel="stylesheet" id="theme"/>
+		<link href="css/custom.css" rel="stylesheet"/>
+		<link href="css/animate.min.css" rel="stylesheet"/>
+		
+		<script type="text/javascript" src="cordova.js"><!--  --></script>
+		<script src="js/jquery-1.9.1.min.js"><!--  --></script>
+		<script src="js/jquery.mobile-1.4.5.min.js"><!--  --></script>
+	    <script src="js/bootstrap.min.js"><!--  --></script>
+   	    <script src="js/bootbox.min.js"><!--  --></script>    
+		
+	</head>
+	<body>
+		<div data-role="page" id="login" class="main-content animated fadeInLeft" style="background: white">
+			<div style="background: #b3998a; border-color: #b3998a;">
+				<div class="row">
+<!-- 					<span class="col-lg-11 col-md-11 col-sm-11 col-xs-11"><img src="img/logo.png" style="width: 100%; margin-left: 4%"/></span> -->
+				</div>
+			</div>
+			<div class="panel rounded shadow panel-theme" style="background: white; border-color: white; margin: 5% 4%">
+				<div class="panel-heading">
+					<div style="display: block; font-size: 13px; margin-bottom: 10px; margin-top: 10px; position: relative;
+	    				text-align: center; text-transform: uppercase;">
+						<span>- Ingrese sus datos de acceso. -</span>
+					</div>
+					<div class="clearfix">
+						<!--   -->
+					</div>
+				</div>
+				<div class="panel-body" style="background: rgba(234, 234, 236, 0.72); border-bottom: 10px solid #a58674; border-top: 10px solid #a58674;
+					border-right: 1px solid #a58674;border-left: 1px solid #a58674">
+					<form id="formulario">
+						<input name="usuario" id="usuario" placeholder="Ingrese Usuario..." type="text" style='width:100%; height:50px'/>
+		            	<input type="password" name="password" id="password" placeholder="Ingrese Contrase&ntilde;a" style='width:100%; height:50px'/>
+						<h2 align=center>
+							<input type="submit" value="Ingresar" class="btn btn-theme shadow rounded" id="botonLogin" style="width: 100%">
+						</h2>
+		        	</form>
+				</div>
+			</div><!-- /.panel-body -->
+		</div> 
+	    <script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript">
+			$(document).on('pageinit', '#login', function(){
+				$('#botonLogin').on("click",function(event) {
+					$.ajax({
+						url: 'http://192.168.37.13:8080/Irrigacion/login/mobile',
+						data: $('#formulario').serialize(),
+						type: "POST",
+						dataType: "json",
+				        async: true,
+				        success: function (result) {
+					        if(result.error != null){
+					        	bootbox.alert("Usuario y/o contrase&#241;a incorrecta.");
+					        	window.location.replace('login.html');
+							}else{
+								alert(result);
+								window.location.replace("menu.html");
+							}
+				        },
+				        error: function (request, error) {
+				        	bootbox.alert("Ocurrio un error inesperado, intente nuevamente.");
+				        	window.location.replace('login.html');
+				        }
+					});
+	            });
+			});
+		</script>
+	</body>
+</html>

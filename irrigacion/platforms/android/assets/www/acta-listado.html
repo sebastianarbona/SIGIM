@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Acta-Irrigaci&#243;n Mobile</title>
+
+        <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.css" />
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bud-green.theme.css"/>
+        <link href="css/reset.css" rel="stylesheet"/>
+        <link href="css/layout.css" rel="stylesheet"/>
+        <link href="css/components.css" rel="stylesheet"/>
+        <link href="css/plugins.css" rel="stylesheet"/>
+        <link href="css/custom.css" rel="stylesheet"/>
+        <link href="css/animate.min.css" rel="stylesheet"/>
+
+        <script src="cordova.js">/* */</script>
+        <script src="js/jquery-1.9.1.min.js">/* */</script>
+        <script src="js/jquery.mobile-1.4.5.min.js">/* */</script>
+        <script src="js/bootstrap.min.js">/* */</script>
+        <script src="js/bootbox.min.js">/* */</script>
+        <script src="js/jquery.maskedinput.min.js">/* */</script>
+	    
+	</head>
+	<body>
+		<div data-role="page" id="home" class="main-content animated fadeInLeft" style="background: white">
+			<div class="panel rounded panel-theme" style="background: #00b1e1; border-color: grey; margin: 0px">
+				<div style="background: #00b1e1; border-color: grey">
+					<div class="row" style="margin-left: 1%">
+						<h1 class="center" style="text-align: center">
+							<span class="col-lg-11 col-md-11 col-sm-11 col-xs-10">
+								Listado de Actas
+							</span>
+						</h1>
+						<ul class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="list-style: outside none none">
+							<li>
+								<a class="ui-link ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" style="background: RED; border-color: grey; color: grey" data-icon="delete" href="#" id="salir"></a>
+							</li>
+						</ul>
+					</div>
+					<div data-role="navbar" style="margin-bottom: 1%" id="opciones">
+						<ul style="list-style: outside none none">
+								<li><a class="col-md-4 ui-link ui-btn ui-icon-plus ui-btn-icon-top ui-shadow ui-corner-all" style="background: white; border-color: grey; color: grey" data-icon="plus" href="#" onclick="nueva()">Nueva</a></li>
+						</ul>
+					</div>
+					<form id="formFiltro">
+<!-- 						<input id="idResponsable" name="idResponsable" type="hidden"> -->
+<!-- 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0px;background: #2F76BD"> -->
+<!-- 							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="margin: 0px 0px 0px 0px;padding: 0px 0px 0px 10px"> -->
+<!-- 								<input id="proveedor" name="proveedor" class="form-control" type="text" placeholder="Ingresar proveedor"> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 0px;background: #2F76BD"> -->
+<!-- 							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="margin: 0px 0px 0px 0px;padding: 0px 0px 0px 10px"> -->
+<!-- 								<input id="producto" name="producto" class="form-control" type="text" placeholder="Ingresar Producto"> -->
+<!-- 							</div> -->
+<!-- 							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" > -->
+<!-- 									<a id="btnFiltro" class="ui-btn-corner-all ui-btn-up-c ui-btn ui-icon-search ui-btn-icon-top ui-shadow" style="margin: 5px 0px;padding: 7px 0px; background: #00b1e1;" href="#" data-role="button" role="button"> -->
+<!-- 									    <span class="ui-icon ui-icon-search ui-icon-shadow">&nbsp;</span> -->
+<!-- 									</a> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+					</form>
+				</div>
+			</div>
+			<div class="table-responsive">
+  				<table class="table table-bordered table-hover table-striped" id="table-'+id+'">
+  					<thead>
+  						<tr>
+							<th style="min-width: 10%; border-color: #00b1e1 #00b1e1 #2F76BD !important; background-color: black !important; color: white">Acci&#243;n</th>
+							<th style="min-width: 15%; border-color: #00b1e1 #00b1e1 #2F76BD !important; background-color: black !important; color: white">Fecha de Acta</th>
+							<th style="min-width: 15%; border-color: #00b1e1 #00b1e1 #2F76BD !important; background-color: black !important; color: white">N&#176; de Acta</th>
+					  		<th style="min-width: 35%; border-color: #00b1e1 #00b1e1 #2F76BD !important; background-color: black !important; color: white">Vencimiento</th>
+						</tr>
+  					</thead>
+					<tbody id="data">
+						<!--  -->
+					</tbody>
+  				</table>
+  			</div>
+		    <div class="form-footer" >
+                <div class="pull-left">
+                    <button id="volver" class="ui-btn ui-icon-back ui-btn-icon-left ui-corner-all ui-shadow">Volver</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        <br />		
+		</div>
+		<script type="text/javascript">
+			
+			alert("AAAA");
+
+			$("#salir").on("click",function(event) {
+				navigator.app.exitApp();
+			});
+	
+			$("#volver").on("click",function(event) {
+				window.location.replace('menu.html');
+			});
+
+			function nueva(){
+				window.location.replace('acta-1.html');
+			}
+
+			$(document).on('pageinit', '#home', function(){
+				abrirTabla();		
+			});
+
+
+			abrirTabla();
+
+			function eliminar(id){
+				bootbox.confirm("Esta seguro que desea eliminar?", function(result) {
+				  	if(result === true){
+						$.ajax({
+ 							url: 'http://192.168.37.13:8080/Irrigacion/administracion/acta/eliminar?id='+id,
+// 							url: 'http://192.168.1.43:8080/Irrigacion/administracion/acta/eliminar?id='+id,
+							dataType: "json",
+						    async: true,
+						    success: function (result) {
+						    	if(result.error == "error"){
+					        		bootbox.alert("Ha ocurrido un error, intente nuevamente.");
+					        	} else {
+						        	location.reload(true);
+							    }
+							},
+							error: function (request,error) {
+							bootbox.alert('Ha ocurrido un error de red, intente nuevamente por favor!');
+							} 
+						});
+	                }
+				}); 
+			}
+			
+			function editar(id){
+				window.location.replace('acta-1.html?id='+id);
+			}
+
+			function abrirTabla(){
+				$.ajax({
+ 	 				url: 'http://192.168.37.13:8080/Irrigacion/administracion/acta/buscar',
+// 	 				url: 'http://192.168.1.43:8080/Irrigacion/administracion/acta/buscar',
+					data: $("#formFiltro").serialize(),
+			        dataType: "json",
+			        async: true,
+			        success: function (result) {
+    					$.each(result, function(i, detalle) {
+        					$('#data').append('<tr>'+
+											'		<th class="th-'+detalle.id+'" style="padding-left: 4px; padding-right: 4px;">'+
+											'			<button class="" style="margin: 0px 5px 0px 0px;padding: 1px 1px 1px 1px" id="edit-'+detalle.id+'" onclick="editar('+detalle.id+')">'+
+											'			    <span class="ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c ui-icon-edit"'+
+											'					style="background: green;margin: 0px 3px 0px 0px;padding: 0px">&nbsp;</span>'+
+											'			</button>'+
+											'			<button class="" style="margin: 0px;padding: 1px 1px 1px 1px" id="delete-'+detalle.id+'" onclick="eliminar('+detalle.id+')">'+
+											'				<span class="ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-c ui-icon-delete"'+
+											'					style="background: red;margin: 0px;padding: 0px">&nbsp;</span>'+
+											'			</button>'+
+											'		</th>'+
+											'		<th class="th-'+detalle.id+'"><span style="text-shadow: initial">'+detalle.fechaActaStr+'</span></th>'+
+											'		<th class="th-'+detalle.id+'"><span style="text-shadow: initial">'+detalle.numActa+'</span></th>'+
+											'		<th class="th-'+detalle.id+'"><span style="text-shadow: initial">'+detalle.fechaVencimientoStr+'</span></th>'+
+											'</tr>');
+							$("#edit-"+detalle.id).addClass("ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext col-lg-1 col-md-1 col-sm-1 col-xs-1");
+					        $("#delete-"+detalle.id).addClass("ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext col-lg-1 col-md-1 col-sm-1 col-xs-1");
+						});
+			        },
+		        	error: function (request,error) {
+	            		bootbox.alert('Ha ocurrido un error de red, intente nuevamente por favor!');
+		        	}
+				});
+			}
+		</script>
+	</body>
+</html>
